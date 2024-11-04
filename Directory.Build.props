@@ -1,0 +1,14 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpLSL" Version="0.0.8" />
+    <PackageReference Include="SharpLSL.Native.all" Version="1.16.2.1" />
+  </ItemGroup>
+
+</Project>
