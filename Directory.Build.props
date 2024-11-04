@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpLSL" Version="0.0.9" />
-    <PackageReference Include="SharpLSL.Native.all" Version="1.16.2.3" />
+    <PackageReference Include="SharpLSL" Version="0.0.10" />
+    <PackageReference Include="SharpLSL.Native.all" Version="1.16.2.5" />
   </ItemGroup>
 
 </Project>
