@@ -1,0 +1,47 @@
+name: SharpLSL
+
+on:
+  push:
+  pull_request:
+    types: [ opened, ready_for_review, reopened, synchronize ]
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: 6.0.x
+  # Disable the .NET logo in the console output.
+  DOTNET_NOLOGO: true
+  # Disable the .NET first time experience to skip caching NuGet packages and speed up the build.
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending .NET CLI telemetry to Microsoft.
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  # Set the build number in MinVer.
+  MINVERBUILDMETADATA: build.${{ github.run_number }}
+
+jobs:
+  build:
+    name: Build-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Build
+        run: dotnet build SharpLSLDemo.sln -c Debug
+      - name: Run
+        run: |
+          ReceiveData/bin/Debug/net8.0/ReceiveData &
+          SendData/bin/Debug/net8.0/SendData &
+          wait
+        shell: bash
+
+# References:
+# [How do you run multiple programs in parallel from a bash script?](https://stackoverflow.com/questions/3004811/how-do-you-run-multiple-programs-in-parallel-from-a-bash-script)

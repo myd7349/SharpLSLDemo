@@ -15,10 +15,12 @@ Console.Write(inlet.GetStreamInfo().ToXML());
 
 // read samples
 float[] sample = new float[8];
-while (!Console.KeyAvailable)
+int count = 0;
+while (count < 100)
 {
     inlet.PullSample(sample);
     foreach (float f in sample)
         Console.Write("\t{0}", f);
     Console.WriteLine();
+    count += 1;
 }
